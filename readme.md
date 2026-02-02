@@ -1,20 +1,14 @@
 # Helsinki Live Transit: End-to-End IoT Data Engineering Pipeline
 
-This project demonstrates a **production-grade data engineering pipeline** that ingests real-time MQTT streams from **Helsinki’s public transport system**, processes them via a **FastAPI backend on AWS EC2**, and stores historical data in an **Amazon S3 Data Lake** for **serverless analytics using Amazon Athena** and **visualization in Power BI**.
+This project demonstrates a **data engineering pipeline** that ingests real-time MQTT streams from **Helsinki’s public transport system**, processes them via a **FastAPI backend on AWS EC2**, and stores historical data in an **Amazon S3 ** for **serverless analytics using Amazon Athena** and **visualization in Power BI**.
 
 ---
 
 ## Overall Data Engineering Architecture
 
-This diagram provides a high-level view of the end-to-end data flow, from real-time vehicle telemetry to analytics and visualization.
+This diagram provides a high-level view of the data flow, from real-time vehicle telemetry to analytics and visualization.
 
-📌 Insert overall architecture diagram here
-
-```text
-images/architecture-overview.png
-```
-
-![Overall Data Engineering Architecture](images/architecture.svg)
+![Overall Data Engineering Architecture](image/ArchictureHelsinki.png)
 
 **Pipeline Flow:**  
 `MQTT (IoT Source) → EC2 Ingestion & Processing → S3 Data Lake → Athena Tables & Views → Power BI`
@@ -25,13 +19,10 @@ images/architecture-overview.png
 
 This section focuses on real-time ingestion, showing how vehicle telemetry is securely consumed and processed.
 
-📌 Insert MQTT ingestion architecture diagram here
+###The Data Structure 
 
-```text
-images/mqtt-to-ec2.png
-```
+{"vehicle_id": 1537, "line": "111", "direction": "1", "latitude": 60.16433, "longitude": 24.804348, "timestamp": "2026-02-02T15:10:00.967Z", "speed": 8.16}
 
-![MQTT Ingestion Architecture](images/ec2.png)
 
 ### Key Details
 - **Protocol:** MQTT over WSS / SSL
@@ -45,13 +36,7 @@ images/mqtt-to-ec2.png
 
 ## Amazon EC2 Instance Configuration
 
-This diagram or screenshot highlights the EC2 instance setup, networking, and runtime environment.
-
-📌 Insert EC2 instance screenshot here
-
-```text
-images/ec2.png
-```
+This diagram highlights the EC2 instance setup, networking, and runtime environment.
 
 ![EC2 Instance Configuration](images/ec2.png)
 
@@ -66,12 +51,6 @@ images/ec2.png
 ## Storage Layer – Amazon S3 Data Lake Architecture
 
 This diagram shows how raw and processed data is organized in the S3 Data Lake.
-
-📌 Insert S3 data lake architecture diagram here
-
-```text
-images/s3.png
-```
 
 ![S3 Data Lake Architecture](images/s3.png)
 
@@ -89,56 +68,34 @@ s3://helsinki-transit-data/
      └── year=2026/month=01/day=25/
 ```
 
----
 
-## Analytics Layer – Athena Tables and Views
+## Analytics– Amazon  Athena
 
-### Athena Table Definitions
 
-📌 Insert Athena tables screenshot here
+The athena environment is used to turn the files to tables that we can find data through standard sturctured query langauge.
+I created tables to access the vehicleid , speed, longitude, latitude and event_timestamp, from those tables I created a views to summarize the data to the specific requirement needed in the dashboard and further analysis.
 
-```text
-images/athena.png
-```
+![ Amazon Athena ](images/Athena.png)
 
-![Athena Tables](images/Athena.png)
-
-- External tables mapped directly to S3
-- Schema-on-read
-- Partition pruning for performance
-
-### Athena Views
-
-📌 Insert Athena views screenshot here
-
-```text
-images/athena-views.png
-```
-
-![Athena Views](images/athena-views.png)
-
-- Aggregated vehicle movement
-- Congestion analysis
-- Time-windowed summaries
 
 ---
 
-## Visualization Layer – Power BI Integration
+## Project Dashboards
 
-This diagram shows how Power BI connects to Athena for analytics and reporting.
+This dasboard is created with the purpose of highlighting the key KPIS that are needed to make decisions 
+and allow for quick access to current  buses and it's location.
 
-📌 Insert Power BI dashboard image here
+### Executive Dashboard
 
-```text
-images/powerbi-dashboard.png
-```
+![Executive Dashboard](images/Executive Summary Dashboard.png)
 
-![Power BI Dashboard](images/powerbi-dashboard.png)
+### Analytics Dashboard
 
-### Power BI Features
-- DirectQuery / ODBC connection to Athena
-- Real-time and historical analysis
-- Route performance and congestion dashboards
+![Analytics Dashboard](images/Analytics Dashboard.png)
+
+### Live Bus Tracker
+
+![Live Bus Tracker](images/Live bus tracker dasboard.png)
 
 ---
 
@@ -146,13 +103,7 @@ images/powerbi-dashboard.png
 
 ### Real-Time Map (FastAPI and Leaflet.js)
 
-📌 Insert real-time map UI screenshot here
-
-```text
-images/realtime-map.png
-```
-
-![Real-Time Map](images/realtime-map.png)
+![Real-Time Map](images/Live tracker bus web.png)
 
 - Server-Sent Events (SSE)
 - Near real-time vehicle updates
@@ -205,17 +156,17 @@ images/realtime-map.png
 ## Repository Structure
 
 ```
-├── main.py            # FastAPI streaming backend
-├── producer.py        # MQTT ingestion and S3 persistence
-├── index.html         # Live Leaflet.js frontend
-├── images/            # Architecture diagrams and screenshots
+├── main.py                 # FastAPI streaming backend
+├── producer.py             # MQTT ingestion and S3 persistence
+├── index.html              # Live Leaflet.js frontend
+├── images/                 # Architecture diagrams & dashboard screenshots
 │   ├── architecture-overview.png
 │   ├── mqtt-to-ec2.png
 │   ├── ec2.png
 │   ├── s3.png
-│   ├── athena.png
-│   ├── athena-views.png
-│   ├── powerbi-dashboard.png
+│   ├── executive dashboard.png
+│   ├── analytic.png
+│   ├── live bus tracker.png
 │   └── realtime-map.png
 ├── requirements.txt
 └── README.md
