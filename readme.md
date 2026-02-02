@@ -8,210 +8,217 @@ This project demonstrates a **production-grade data engineering pipeline** that 
 
 This diagram provides a high-level view of the end-to-end data flow, from real-time vehicle telemetry to analytics and visualization.
 
-Insert overall architecture diagram here
+📌 Insert overall architecture diagram here
 
 ```text
 images/architecture-overview.png
+```
 
+![Overall Data Engineering Architecture](images/architecture.svg)
 
-Pipeline Flow:
-MQTT (IoT Source) → EC2 Ingestion & Processing → S3 Data Lake → Athena Tables & Views → Power BI
+**Pipeline Flow:**  
+`MQTT (IoT Source) → EC2 Ingestion & Processing → S3 Data Lake → Athena Tables & Views → Power BI`
 
-Ingestion Layer Architecture (MQTT → EC2)
+---
+
+## Ingestion Layer Architecture (MQTT → EC2)
 
 This section focuses on real-time ingestion, showing how vehicle telemetry is securely consumed and processed.
 
-Insert MQTT ingestion architecture diagram here
+📌 Insert MQTT ingestion architecture diagram here
 
+```text
 images/mqtt-to-ec2.png
+```
 
+![MQTT Ingestion Architecture](images/ec2.png)
 
-Key Details
+### Key Details
+- **Protocol:** MQTT over WSS / SSL
+- **Source:** HSL (Helsinki Regional Transport Authority) live positioning feed
+- **Compute:** Amazon EC2
+- **Process:**
+  - Python-based MQTT subscriber
+  - FastAPI backend for real-time SSE streaming
 
-Protocol: MQTT over WSS / SSL
+---
 
-Source: HSL (Helsinki Regional Transport Authority) live positioning feed
-
-Compute: Amazon EC2
-
-Process:
-
-Python-based MQTT subscriber
-
-FastAPI backend for real-time SSE streaming
-
-Amazon EC2 Instance Configuration
+## Amazon EC2 Instance Configuration
 
 This diagram or screenshot highlights the EC2 instance setup, networking, and runtime environment.
 
-Insert EC2 instance screenshot here
+📌 Insert EC2 instance screenshot here
 
+```text
 images/ec2.png
+```
 
+![EC2 Instance Configuration](images/ec2.png)
 
-EC2 Responsibilities
+### EC2 Responsibilities
+- Hosts the FastAPI application
+- Runs MQTT ingestion (`producer.py`)
+- Streams real-time data to the frontend
+- Batches and writes data to Amazon S3
 
-Hosts the FastAPI application
+---
 
-Runs MQTT ingestion (producer.py)
-
-Streams real-time data to the frontend
-
-Batches and writes data to Amazon S3
-
-Storage Layer – Amazon S3 Data Lake Architecture
+## Storage Layer – Amazon S3 Data Lake Architecture
 
 This diagram shows how raw and processed data is organized in the S3 Data Lake.
 
-Insert S3 data lake architecture diagram here
+📌 Insert S3 data lake architecture diagram here
 
+```text
 images/s3.png
+```
 
+![S3 Data Lake Architecture](images/s3.png)
 
-Storage Design
-
-Partitioned by date and time
-
-Optimized for Athena querying
-
-Supports Parquet / CSV formats
+### Storage Design
+- Partitioned by date and time
+- Optimized for Athena querying
+- Supports Parquet / CSV formats
 
 Example structure:
-
+```
 s3://helsinki-transit-data/
  ├── raw/
  │   └── year=2026/month=01/day=25/
  └── processed/
      └── year=2026/month=01/day=25/
+```
 
-Analytics Layer – Athena Tables and Views
+---
 
-This section documents the logical analytics layer built on top of S3.
+## Analytics Layer – Athena Tables and Views
 
-Athena Table Definitions
+### Athena Table Definitions
 
-Insert Athena tables screenshot here
+📌 Insert Athena tables screenshot here
 
-images/Athena.png
+```text
+images/athena.png
+```
 
+![Athena Tables](images/Athena.png)
 
-External tables mapped directly to S3
+- External tables mapped directly to S3
+- Schema-on-read
+- Partition pruning for performance
 
-Schema-on-read
+### Athena Views
 
-Partition pruning for performance
+📌 Insert Athena views screenshot here
 
-Athena Views
-
-Insert Athena views screenshot here
-
+```text
 images/athena-views.png
+```
 
+![Athena Views](images/athena-views.png)
 
-Aggregated vehicle movement
+- Aggregated vehicle movement
+- Congestion analysis
+- Time-windowed summaries
 
-Congestion analysis
+---
 
-Time-windowed summaries
-
-Visualization Layer – Power BI Integration
+## Visualization Layer – Power BI Integration
 
 This diagram shows how Power BI connects to Athena for analytics and reporting.
 
-Insert Power BI architecture or dashboard image here
+📌 Insert Power BI dashboard image here
 
+```text
 images/powerbi-dashboard.png
+```
 
+![Power BI Dashboard](images/powerbi-dashboard.png)
 
-Power BI Features
+### Power BI Features
+- DirectQuery / ODBC connection to Athena
+- Real-time and historical analysis
+- Route performance and congestion dashboards
 
-DirectQuery / ODBC connection to Athena
+---
 
-Real-time and historical analysis
+## Project UI and Results
 
-Route performance and congestion dashboards
+### Real-Time Map (FastAPI and Leaflet.js)
 
-Project UI and Results
-Real-Time Map (FastAPI and Leaflet.js)
+📌 Insert real-time map UI screenshot here
 
-Insert real-time map UI screenshot here
-
+```text
 images/realtime-map.png
+```
 
+![Real-Time Map](images/realtime-map.png)
 
-Server-Sent Events (SSE)
+- Server-Sent Events (SSE)
+- Near real-time vehicle updates
+- Interactive Leaflet.js map
 
-Near real-time vehicle updates
+---
 
-Interactive Leaflet.js map
+## Tech Stack
 
-Tech Stack
-Languages and Frameworks
+### Languages and Frameworks
+- Python (FastAPI, Pandas, Paho-MQTT)
 
-Python (FastAPI, Pandas, Paho-MQTT)
+### AWS Services
+- Amazon EC2
+- Amazon S3
+- Amazon Athena
+- AWS IAM
 
-AWS Services
+### DevOps and Tooling
+- `nohup` for background processing
+- `requirements.txt` for dependency management
 
-Amazon EC2
+### Frontend and BI
+- HTML5
+- Leaflet.js
+- Power BI Desktop
 
-Amazon S3
+---
 
-Amazon Athena
+## Deployment Overview
 
-AWS IAM
+1. **Provision EC2**
+   - Amazon Linux 2
+   - Open ports: `80`, `8000`, `443`
 
-DevOps and Tooling
+2. **Configure Ingestion**
+   - Run `producer.py` for MQTT ingestion
+   - Enable batching to S3
 
-nohup for background processing
+3. **Create Athena Tables and Views**
+   - Point to S3 Data Lake
+   - Enable partitioning
 
-requirements.txt for dependency management
+4. **Connect Power BI**
+   - Use Athena connector
+   - Build dashboards
 
-Frontend and BI
+---
 
-HTML5
+## Repository Structure
 
-Leaflet.js
-
-Power BI Desktop
-
-Deployment Overview
-
-Provision EC2
-
-Amazon Linux 2
-
-Open ports: 80, 8000, 443
-
-Configure Ingestion
-
-Run producer.py for MQTT ingestion
-
-Enable batching to S3
-
-Create Athena Tables and Views
-
-Point to S3 Data Lake
-
-Enable partitioning
-
-Connect Power BI
-
-Use Athena connector
-
-Build dashboards
-
-Repository Structure
+```
 ├── main.py            # FastAPI streaming backend
 ├── producer.py        # MQTT ingestion and S3 persistence
 ├── index.html         # Live Leaflet.js frontend
 ├── images/            # Architecture diagrams and screenshots
 │   ├── architecture-overview.png
 │   ├── mqtt-to-ec2.png
-│   ├── ec2-instance.png
-│   ├── s3-data-lake.png
-│   ├── athena-tables.png
+│   ├── ec2.png
+│   ├── s3.png
+│   ├── athena.png
 │   ├── athena-views.png
 │   ├── powerbi-dashboard.png
 │   └── realtime-map.png
 ├── requirements.txt
 └── README.md
+```
+
+---
