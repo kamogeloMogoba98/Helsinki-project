@@ -19,7 +19,7 @@ This diagram provides a high-level view of the data flow, from real-time vehicle
 
 This section focuses on real-time ingestion, showing how vehicle telemetry is securely consumed and processed.
 
-###The Data Structure 
+### The Data Structure 
 
 {"vehicle_id": 1537, "line": "111", "direction": "1", "latitude": 60.16433, "longitude": 24.804348, "timestamp": "2026-02-02T15:10:00.967Z", "speed": 8.16}
 
@@ -87,15 +87,15 @@ and allow for quick access to current  buses and it's location.
 
 ### Executive Dashboard
 
-![Executive Dashboard](images/Executive Summary Dashboard.png)
+![Executive Dashboard](images/Executive_Summary_ Dashboard.png)
 
 ### Analytics Dashboard
 
-![Analytics Dashboard](images/Analytics Dashboard.png)
+![Analytics Dashboard](images/Analytics_Dashboard..png)
 
 ### Live Bus Tracker
 
-![Live Bus Tracker](images/Live bus tracker dasboard.png)
+![Live Bus Tracker](images/Live_bus_tracker_dashboard.png)
 
 ---
 
@@ -103,7 +103,7 @@ and allow for quick access to current  buses and it's location.
 
 ### Real-Time Map (FastAPI and Leaflet.js)
 
-![Real-Time Map](images/Live tracker bus web.png)
+![Real-Time Map](images/live_ tracker_bus_web.png)
 
 - Server-Sent Events (SSE)
 - Near real-time vehicle updates
