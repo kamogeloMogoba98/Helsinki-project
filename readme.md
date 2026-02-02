@@ -8,7 +8,7 @@ This project demonstrates a **data engineering pipeline** that ingests real-time
 
 This diagram provides a high-level view of the data flow, from real-time vehicle telemetry to analytics and visualization.
 
-![Overall Data Engineering Architecture](image/ArchictureHelsinki.png)
+![Overall Data Engineering Architecture](images/ArchictureHelsinki.png)
 
 **Pipeline Flow:**  
 `MQTT (IoT Source) → EC2 Ingestion & Processing → S3 Data Lake → Athena Tables & Views → Power BI`
@@ -87,11 +87,11 @@ and allow for quick access to current  buses and it's location.
 
 ### Executive Dashboard
 
-![Executive Dashboard](images/Executive_Summary_ Dashboard.png)
+![Executive Dashboard](images/Executive_Summary_Dashboard.png)
 
 ### Analytics Dashboard
 
-![Analytics Dashboard](images/Analytics_Dashboard..png)
+![Analytics Dashboard](images/Analytics_Dashboard.png)
 
 ### Live Bus Tracker
 
@@ -103,7 +103,7 @@ and allow for quick access to current  buses and it's location.
 
 ### Real-Time Map (FastAPI and Leaflet.js)
 
-![Real-Time Map](images/live_ tracker_bus_web.png)
+![Real-Time Map](images/live_tracker_bus_web.png)
 
 - Server-Sent Events (SSE)
 - Near real-time vehicle updates
