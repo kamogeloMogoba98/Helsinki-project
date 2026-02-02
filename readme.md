@@ -180,4 +180,13 @@ and allow for quick access to current  buses and it's location.
 └── README.md
 ```
 
+### Author
+
+Kamogelo Mogoba
+Data Engineer | LinkedIn: Kamogelo Mogoba.
+
+License 
+
+This project is portolio and research purposes
+
 ---
