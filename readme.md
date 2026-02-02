@@ -87,7 +87,7 @@ and allow for quick access to current  buses and it's location.
 
 ### Executive Dashboard
 
-![Executive Dashboard](images/Executive_Summary_Dashboard.png)
+![Executive Dashboard](images/Executive_SummaryDashboard.png)
 
 ### Analytics Dashboard
 
@@ -103,7 +103,7 @@ and allow for quick access to current  buses and it's location.
 
 ### Real-Time Map (FastAPI and Leaflet.js)
 
-![Real-Time Map](images/live_tracker_bus_web.png)
+![Real-Time Map](images/live_tracker_web.png)
 
 - Server-Sent Events (SSE)
 - Near real-time vehicle updates
