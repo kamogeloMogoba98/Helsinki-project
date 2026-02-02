@@ -8,11 +8,11 @@ import time
 # -----------------------------
 # CONFIG
 # -----------------------------
-S3_BUCKET = "hsl-bus-raw"
-S3_REGION = "eu-north-1"
-ATHENA_DB = "hsl_analytics"
-ATHENA_TABLE = "hsl_vehicle_positions"
-ATHENA_OUTPUT = "s3://hsl-bus-raw/athena-results/"  # ✅ real bucket for Athena results
+S3_BUCKET = ""
+S3_REGION = ""
+ATHENA_DB = ""
+ATHENA_TABLE = ""
+ATHENA_OUTPUT = "s3://"  # ✅ real bucket for Athena results
 
 # Vehicle IDs to track
 TRACK_VEHICLES = ["22/1023", "22/1265", "18/634", "22/915"]
