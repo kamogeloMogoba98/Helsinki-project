@@ -19,9 +19,17 @@ This diagram provides a high-level view of the data flow, from real-time vehicle
 
 This section focuses on real-time ingestion, showing how vehicle telemetry is securely consumed and processed.
 
+## The ingestion of the MQQT documentation can be found here:
+
+This is the offical documentation
+
+https://digitransit.fi/en/developers/apis/5-realtime-api/vehicle-positions/
+
+---
+
 ### The Data Structure 
 
-{"vehicle_id": 1537, "line": "111", "direction": "1", "latitude": 60.16433, "longitude": 24.804348, "timestamp": "2026-02-02T15:10:00.967Z", "speed": 8.16}
+`   {"vehicle_id": 1537, "line": "111", "direction": "1", "latitude": 60.16433, "longitude": 24.804348, "timestamp": "2026-02-02T15:10:00.967Z", "speed": 8.16}    ` 
 
 
 ### Key Details
